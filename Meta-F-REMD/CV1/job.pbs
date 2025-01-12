@@ -1,0 +1,15 @@
+#PBS -N  MetaREMD     # job name
+#PBS -o  NRP1   # output and error file name (%j expands to jobID)
+#PBS -e  NRP1   # output and error file name (%j expands to jobID)
+#PBS -q  hongchang     # queue name
+
+#PBS -l  nodes=1:ppn=10 # number of nodes
+#PBS =l  walltime=48:00:00 
+
+cd  /home/lzl/Desktop/NRPSmall/md1
+
+NPROCS='wc -l < $PBS_NODEFILE'
+
+source /opt/software/gromacs-2021.4/env.sh
+ 
+gmx mdrun -deffnm md -cpi md.cpt -append -gpu_id 1 -plumed plumed.dat  -ntomp 10 &
